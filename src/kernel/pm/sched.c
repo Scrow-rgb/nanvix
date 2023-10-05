@@ -24,6 +24,27 @@
 #include <nanvix/pm.h>
 #include <signal.h>
 
+int global_time = 0;
+
+/* function to calculate dynamic priority
+-- feito por milleny*/
+PUBLIC void dynamicPriority(){
+
+	struct process *p; /* Working process. */
+	p->ready_time = 0 ;
+
+	for (p = FIRST_PROC; p <= LAST_PROC; p++)
+    {
+        /* Skip invalid processes and non-ready processes. */
+        if (!IS_VALID(p) || p->state != PROC_READY)
+            continue;
+
+        /* Increment the ready time */
+        p->ready_time ++;
+    }
+
+}
+
 /**
  * @brief Schedules a process to execution.
  *
@@ -67,6 +88,11 @@ PUBLIC void yield(void)
 	struct process *p;    /* Working process.     */
 	struct process *next; /* Next process to run. */
 
+	int max_ready_time = -1; // Initialize with a negative value -*leny.
+
+    /* Calculate dynamic priority for all processes. */
+    dynamicPriority();
+
 	/* Re-schedule process for execution. */
 	if (curr_proc->state == PROC_RUNNING)
 		sched(curr_proc);
@@ -95,21 +121,15 @@ PUBLIC void yield(void)
 			continue;
 
 		/*
-		 * Process with higher
-		 * waiting time found.
+		 * highest time in ready state -leny: alterei isso aqui pra escolher o processo com estado ready ha mais tempo.
 		 */
-		if (p->counter > next->counter)
+		if (p->ready_time > max_ready_time)
 		{
-			next->counter++;
-			next = p;
+			max_ready_time = p->ready_time;
+            next = p;
 		}
 
-		/*
-		 * Increment waiting
-		 * time of process.
-		 */
-		else
-			p->counter++;
+		
 	}
 
 	/* Switch to next process. */

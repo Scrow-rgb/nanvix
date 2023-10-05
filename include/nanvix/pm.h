@@ -168,6 +168,7 @@
 		 * @name General information
 		 */
 		/**@{*/
+		int ready_time;
 		int status;             /**< Exit status.             */
 		int errno;              /**< Error code.              */
 		unsigned nchildren;     /**< Number of children.      */
