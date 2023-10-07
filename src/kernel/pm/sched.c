@@ -134,10 +134,11 @@ PUBLIC void yield(void)
 		*/
 
 		// se prioridade e contador de tempo forem maiores, o processo é o proximo
-		if (p->priority >= next->priority && p->counter >= next->counter || p->priority < next->priority && p->counter > next->counter)
+		if ((p->priority >= next->priority && p->counter >= next->counter) || (p->priority < next->priority && p->counter > next->counter))
 		{	
 			next->counter++;
 			next = p;
+			p->priority --;
 		}
 		//caso não, contador incrementado
 		else{
