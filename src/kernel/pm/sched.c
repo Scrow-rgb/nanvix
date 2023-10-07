@@ -24,26 +24,29 @@
 #include <nanvix/pm.h>
 #include <signal.h>
 
-int global_time = 0;
+//int global_time = 0;
 
 /* function to calculate dynamic priority
 -- feito por milleny*/
+/*
 PUBLIC void dynamicPriority(){
-
-	struct process *p; /* Working process. */
+	
+	struct process *p;  Working process. 
 	p->ready_time = 0 ;
 
 	for (p = FIRST_PROC; p <= LAST_PROC; p++)
     {
-        /* Skip invalid processes and non-ready processes. */
+         Skip invalid processes and non-ready processes. 
         if (!IS_VALID(p) || p->state != PROC_READY)
             continue;
 
-        /* Increment the ready time */
+         Increment the ready time 
         p->ready_time ++;
     }
 
 }
+*/
+
 
 /**
  * @brief Schedules a process to execution.
@@ -53,7 +56,7 @@ PUBLIC void dynamicPriority(){
 PUBLIC void sched(struct process *proc)
 {
 	proc->state = PROC_READY;
-	proc->counter = 0;
+	proc->counter = 0; //counter zerado que será utilizado para contagem de tempo no yield
 }
 
 /**
@@ -88,10 +91,10 @@ PUBLIC void yield(void)
 	struct process *p;    /* Working process.     */
 	struct process *next; /* Next process to run. */
 
-	int max_ready_time = -1; // Initialize with a negative value -*leny.
+	//int max_ready_time = -1; // Initialize with a negative value -*leny.
 
     /* Calculate dynamic priority for all processes. */
-    dynamicPriority();
+    //dynamicPriority();
 
 	/* Re-schedule process for execution. */
 	if (curr_proc->state == PROC_RUNNING)
@@ -122,11 +125,27 @@ PUBLIC void yield(void)
 
 		/*
 		 * highest time in ready state -leny: alterei isso aqui pra escolher o processo com estado ready ha mais tempo.
-		 */
+		 
 		if (p->ready_time > max_ready_time)
 		{
 			max_ready_time = p->ready_time;
             next = p;
+		}
+		*/
+
+		// se prioridade e contador de tempo forem maiores, o processo é o proximo
+		if (p->priority >= next->priority && p->counter >= next->counter) 
+		{	
+			next->counter++;
+			next = p;
+		}
+		//caso não, contador incrementado
+		else{
+			p->counter++;
+			//se Priority de p ainda for menor enquanto o tempo de espera já for maior, add priority
+			if(p->priority < next->priority && p->counter > next->counter){ 																
+				p->priority++;
+			}
 		}
 
 		
