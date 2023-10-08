@@ -76,7 +76,7 @@
 	#define PROC_QUANTUM 50 /**< Quantum.                  */
 	#define NR_PREGIONS   4 /**< Number of memory regions. */
 	/**@}*/
-
+	#define MAX_WAITING 30 /**<Max Waiting Value until priority increase*/
 	/**
 	 * @name Process priorities
 	 */
