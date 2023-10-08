@@ -1,25 +1,16 @@
-# Nanvix
+## Implementação de Fila de Prioridades para o sistema Nanvix
 
-[![Join us on Slack!](https://img.shields.io/badge/chat-on%20Slack-e01563.svg)](https://join.slack.com/t/nanvix/shared_invite/zt-1yu30bs28-nsNmw8IwCyh6MBBV~B~X7w)
+## Objetivo da implementação
 
-## What Is Nanvix?
+O sistema Nanvix possui um sistema de escalonamento de processos simples baseado em Round-robin: atribuir a cada processo um quantum de tempo e então escaloná-los seguindo o critério first-in first-out. No entanto, esse tipo de escalonamento pode gerar esperas muito longas para processos executados por último e, por isso, buscamos implementar um algoritmo utilizando a fila de prioridades para realizar o escalonamento do sistema.
 
-> This repository hosts the educational version of Nanvix.
+## O que é Fila de Prioridades
 
-Nanvix is a Unix-like operating system written by [Pedro Henrique
-Penna](https://github.com/ppenna) for educational purposes. It is designed to be
-simple and small, but also modern and fully featured.
-
-## What Hardware Is Required?
-
-Nanvix targets 32-bit x86-based PCs and only requires a floppy or
-CD-ROM drive and 16 MB of RAM. You can run it either in a real PC
-or in a virtual machine, using a system image.
+Uma fila de prioridades em um sistema de escalonamento de um sistema operacional é uma estrutura de dados usada para gerenciar os processos que estão prontos para serem executados pela CPU com base em suas prioridades. Ela permite que o sistema operacional selecione o próximo processo a ser executado com base em critérios de prioridade definidos.
 
 
 
-## License and Maintainers
+## O sistema de Prioridades do Nanvix
 
-Nanvix is a free software that is under the GPL V3 license and is
-maintained by Pedro Henrique Penna. Any questions or suggestions send him an
-email: <pedrohenriquepenna@gmail.com>
+
+#define PRIO_USER         40 /**< User priority.               */
