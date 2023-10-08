@@ -31,6 +31,46 @@ int counter;    </code>
 <p> Pela função pm_init(), os campos da struct processo são atualizados. Para essa implementação, os campos importantes são:
 <code>	IDLE->state = PROC_RUNNING;
 	IDLE->counter = PROC_QUANTUM;
-	IDLE->priority = PRIO_USER;</code> </p>
+	IDLE->priority = PRIO_USER;</code> 
+ <p>
+	 Aqui temos o primeiro contato com as definições de um processo que será utilizado para inicialização do escalonamento, IDLE.
+ </p>
+
+</p>
+
+ <li>Na Sched.c acontecem as operações relacionadas ao agendamento e ordem de execução da tabela de processos</li>
+ <p>Podemos observar que no <code>Sched.c</code> existem algumas funções importantes como o sched em si que muda o estado do processo para para pronto e assim o processo na tabela de processos poderá ser executado quando o método yield fizer seu escalonamento após o termino de outro processo já escalonado. As alterações referentes ao trabalho foram implementadas dentro do método yield.</p>
+
+ ### Yield ()
+ <p>Dentro do método yield entendemos que havia implementado um algoritmo que selecionava o proximo processo com base em seu tempo de espera, sem levar em consideração sua prioridade efetiva. O trecho de código referente a essa implementação é esse:</p>
+ <p><code>/* Choose a process to run next. */
+	next = IDLE;
+	for (p = FIRST_PROC; p <= LAST_PROC; p++)
+	{
+		/* Skip non-ready process. */
+		if (p->state != PROC_READY)
+			continue;
+
+		/*
+		 * Process with higher
+		 * waiting time found.
+		 */
+		if (p->counter > next->counter)
+		{
+			next->counter++;
+			next = p;
+		}
+
+		/*
+		 * Increment waiting
+		 * time of process.
+		 */
+		else
+			p->counter++;
+	}
+</code></p>
+
+<p>Então entendendo que esse trecho fazia a principal distinção entre qual seria o proximo processo executado, seguimos para a nossa solução para implementação de uma fila de prioridades</p>
+
 
  
