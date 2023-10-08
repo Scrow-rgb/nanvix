@@ -114,6 +114,9 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 <li>Aging que faz uma diminuição da prioridade do processo sempre que o processo é executado com exeção de quando o processo tem uma prioridade de usuário (Foi levado em consideração que a prioridade PRIO_USER é a prioridade mais alta dentro do sistema)</li>
 <li>Max-Waiting-Time, define um valor máximo de espera para que processos de prioridade baixa não fiquem infinitamente aguardando seu escalonamento</li>
 </p>
+<p>Essas 2 implementações fazem as alterações de prioridade necessárias para que os processos mais prioritários sejam escalonados primeiro e conforme a tabela de processos, caso um processo tenha sua prioridade modificada pela função nice o algoritmo funcionará do mesmo jeito já que as prioridades estão sendo comparadas diretamente dos processos da tabela de processos</p>
+
+
 
 
 
