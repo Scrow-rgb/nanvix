@@ -32,17 +32,17 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 
 <li>Na pm.c o processo é inicializado</li>
 
-<p> Pela função pm_init(), os campos da struct processo são atualizados. Para essa implementação, os campos importantes são:
-	<code>	
+<p> Pela função pm_init(), os campos da struct processo são atualizados. Para essa implementação, os campos importantes são: </p>
+<code>	
 		
-		IDLE->state = PROC_RUNNING;
-		IDLE->counter = PROC_QUANTUM;
-		IDLE->priority = PRIO_USER;
+	IDLE->state = PROC_RUNNING;
+	IDLE->counter = PROC_QUANTUM;
+	IDLE->priority = PRIO_USER;
 	 
 </code> 
 <p>Aqui temos o primeiro contato com as definições de um processo que será utilizado para inicialização do escalonamento, IDLE.</p>
 
-</p>
+
 
  <li>Na Sched.c acontecem as operações relacionadas ao agendamento e ordem de execução da tabela de processos</li>
  <p>Podemos observar que no <code>Sched.c</code> existem algumas funções importantes como o sched em si que muda o estado do processo para para pronto e assim o processo na tabela de processos poderá ser executado quando o método yield fizer seu escalonamento após o termino de outro processo já escalonado. As alterações referentes ao trabalho foram implementadas dentro do método yield.</p>
@@ -79,6 +79,10 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 </code></p>
 
 <p>Então entendendo que esse trecho fazia a principal distinção entre qual seria o proximo processo executado, seguimos para a nossa solução para implementação de uma fila de prioridades</p>
+
+### Yield ( ) - Com Fila de Prioridades
+<p>Várias alterações foram feitas durante a decisão de qual forma seria implementada uma prioridade dinamica que se atualiza. A solução que mais fez sentido para o grupo foi a seguinte:</p>
+
 
 
  
