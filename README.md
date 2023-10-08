@@ -23,9 +23,12 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 <p>A Struct Process implementa os campos de um processo. Nessa struct, presente na biblioteca pm.h vemos que o processo possui um campo priority e uma prioridade de usuário definida como 40 inicialmente, além de um counter que conta o tempo (quantum) faltante para o processo.
 
 <code>
-#define PRIO_USER         40 /**< User priority.               *
-int priority;
-int counter;    </code>
+	
+	#define PRIO_USER         40   //User Priority        
+	int priority;
+	int counter;    
+
+</code>
 
 <li>Na pm.c o processo é inicializado</li>
 
