@@ -36,6 +36,48 @@
 
 /* Test flags. */
 static unsigned flags = VERBOSE | FULL;
+/**
+ * @brief Scheduling test 4.
+ *
+ * @details Spawns several processes, half of them are CPU bound and half of them are IO bound.
+ *
+ * @returns Zero if passed on test, and non-zero otherwise.
+ */
+static int sched_test4(void)
+{
+	pid_t pid[8];
+
+	for (int i = 0; i < 8; i++)
+	{
+		pid[i] = fork();
+
+		/* Failed to fork(). */
+		if (pid[i] < 0)
+			return (-1);
+
+		/* Child process. */
+		else if (pid[i] == 0)
+		{
+			if (i < 4)
+			{
+				work_cpu();
+			}
+			else
+			{
+				work_io();
+			}
+			_exit(EXIT_SUCCESS);
+		}
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		wait(NULL);
+	}
+
+	return (0);
+}
+
 
 /*============================================================================*
  *                               swap_test                                    *
@@ -49,6 +91,7 @@ static unsigned flags = VERBOSE | FULL;
  *
  * @returns Zero if passed on test, and non-zero otherwise.
  */
+
 static int swap_test(void)
 {
 	#define N 1280
@@ -605,6 +648,7 @@ static void usage(void)
 	printf("  ipc   Interprocess Communication Test\n");
 	printf("  swp   Swapping Test\n");
 	printf("  sched Scheduling Test\n");
+	printf("  sched4 Scheduling Test\n");
 
 	exit(EXIT_SUCCESS);
 }
@@ -662,6 +706,14 @@ int main(int argc, char **argv)
 			printf("Float Point Unit Test\n");
 			printf("  Result [%s]\n",
 				(!fpu_test()) ? "PASSED" : "FAILED");
+		}
+
+		/* I/O and CPU process test. */
+		else if (!strcmp(argv[i], "sched4"))
+		{
+			printf("I/O and CPU process test\n");
+			printf("  Result [%s]\n",
+				(!sched_test4()) ? "PASSED" : "FAILED");
 		}
 
 		/* Wrong usage. */
