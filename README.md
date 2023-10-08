@@ -20,10 +20,11 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 
 <li>Prioridade estática, que é atribuída pelo sistema operacional com base na atividade de um processo:
 
-<p>A Struct Process implementa os campos de um processo. Nessa struct, presente na biblioteca pm.h vemos que o processo possui um campo priority e uma prioridade de usuário definida como 40 inicialmente, além de um counter que conta o tempo (quantum) faltante para o processo.
+<p>A Struct Process implementa os campos de um processo. Nessa struct, presente na biblioteca pm.h vemos que o processo possui um campo priority e uma prioridade de usuário definida como 40 inicialmente, além de um counter que conta o tempo (quantum) faltante para o processo (que será utilizado para contar quanto tempo um processo está em espera com estado Ready). Adicionamos tambem uma definição para o tempo maximo de espera, para implementação da prioridade dinamica.
 
 <code>
-	
+
+ 	#define MAX_WAITING       30 
 	#define PRIO_USER         40   //User Priority        
 	int priority;
 	int counter;    
