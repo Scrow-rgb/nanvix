@@ -36,47 +36,7 @@
 
 /* Test flags. */
 static unsigned flags = VERBOSE | FULL;
-/**
- * @brief Scheduling test 4.
- *
- * @details Spawns several processes, half of them are CPU bound and half of them are IO bound.
- *
- * @returns Zero if passed on test, and non-zero otherwise.
- */
-static int sched_test4(void)
-{
-	pid_t pid[8];
 
-	for (int i = 0; i < 8; i++)
-	{
-		pid[i] = fork();
-
-		/* Failed to fork(). */
-		if (pid[i] < 0)
-			return (-1);
-
-		/* Child process. */
-		else if (pid[i] == 0)
-		{
-			if (i < 4)
-			{
-				work_cpu();
-			}
-			else
-			{
-				work_io();
-			}
-			_exit(EXIT_SUCCESS);
-		}
-	}
-
-	for (int i = 0; i < 8; i++)
-	{
-		wait(NULL);
-	}
-
-	return (0);
-}
 
 
 /*============================================================================*
@@ -261,7 +221,47 @@ static void work_io(void)
 	/* House keeping. */
 	close(fd);
 }
+/**
+ * @brief Scheduling test 4.
+ *
+ * @details Spawns several processes, half of them are CPU bound and half of them are IO bound.
+ *
+ * @returns Zero if passed on test, and non-zero otherwise.
+ */
+static int sched_test4(void)
+{
+	pid_t pid[8];
 
+	for (int i = 0; i < 8; i++)
+	{
+		pid[i] = fork();
+
+		/* Failed to fork(). */
+		if (pid[i] < 0)
+			return (-1);
+
+		/* Child process. */
+		else if (pid[i] == 0)
+		{
+			if (i < 4)
+			{
+				work_cpu();
+			}
+			else
+			{
+				work_io();
+			}
+			_exit(EXIT_SUCCESS);
+		}
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		wait(NULL);
+	}
+
+	return (0);
+}
 /**
  * @brief Scheduling test 0.
  *
