@@ -22,19 +22,22 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 
 <p>A Struct Process implementa os campos de um processo. Nessa struct, presente na biblioteca pm.h vemos que o processo possui um campo priority e uma prioridade de usuário definida como 40 inicialmente, além de um counter que conta o tempo (quantum) faltante para o processo.
 
-<code>#define PRIO_USER         40 /**< User priority.               *
+<code>
+#define PRIO_USER         40 /**< User priority.               *
 int priority;
 int counter;    </code>
 
 <li>Na pm.c o processo é inicializado</li>
 
 <p> Pela função pm_init(), os campos da struct processo são atualizados. Para essa implementação, os campos importantes são:
-<code>	IDLE->state = PROC_RUNNING;
-	IDLE->counter = PROC_QUANTUM;
-	IDLE->priority = PRIO_USER;</code> 
- <p>
-	 Aqui temos o primeiro contato com as definições de um processo que será utilizado para inicialização do escalonamento, IDLE.
- </p>
+	<code>	
+		
+		IDLE->state = PROC_RUNNING;
+		IDLE->counter = PROC_QUANTUM;
+		IDLE->priority = PRIO_USER;
+	 
+</code> 
+<p>Aqui temos o primeiro contato com as definições de um processo que será utilizado para inicialização do escalonamento, IDLE.</p>
 
 </p>
 
@@ -43,7 +46,8 @@ int counter;    </code>
 
  ### Yield ()
  <p>Dentro do método yield entendemos que havia implementado um algoritmo que selecionava o proximo processo com base em seu tempo de espera, sem levar em consideração sua prioridade efetiva. O trecho de código referente a essa implementação é esse:</p>
- <p><code>/* Choose a process to run next. */
+ <p><code> 
+	 
 	next = IDLE;
 	for (p = FIRST_PROC; p <= LAST_PROC; p++)
 	{
@@ -68,6 +72,7 @@ int counter;    </code>
 		else
 			p->counter++;
 	}
+ 
 </code></p>
 
 <p>Então entendendo que esse trecho fazia a principal distinção entre qual seria o proximo processo executado, seguimos para a nossa solução para implementação de uma fila de prioridades</p>
