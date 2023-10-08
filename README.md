@@ -1,4 +1,8 @@
 ## Implementação de Fila de Prioridades para o sistema Nanvix
+Por:
+Caio Silva
+Mateus Gontijo
+Milleny Teixeira
 
 ## Objetivo da implementação
 
@@ -12,5 +16,12 @@ Uma fila de prioridades em um sistema de escalonamento de um sistema operacional
 
 ## O sistema de Prioridades do Nanvix
 
+As prioridades do sistema Nanvix obedecem os seguintes critérios:
 
-#define PRIO_USER         40 /**< User priority.               */
+<li>Prioridade estática, que é atribuída pelo sistema operacional com base na atividade de um processo:
+
+<p>A Struct Process implementa os campos de um processo. Nessa struct, presente na biblioteca pm.h vemos que o processo possui um campo priority e uma prioridade de usuário definida como 40 inicialmente, além de um counter que conta o tempo (quantum) faltante para o processo.
+
+<code>#define PRIO_USER         40 /**< User priority.               *</code>
+<code> int priority;</code>
+<code>int counter;    </code>
