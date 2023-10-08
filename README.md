@@ -82,6 +82,39 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 
 ### Yield ( ) - Com Fila de Prioridades
 <p>Várias alterações foram feitas durante a decisão de qual forma seria implementada uma prioridade dinamica que se atualiza. A solução que mais fez sentido para o grupo foi a seguinte:</p>
+<code>
+	
+	next = IDLE;
+	for (p = FIRST_PROC; p <= LAST_PROC; p++)
+	{
+		/* Skip non-ready process. */
+		if (p->state != PROC_READY)
+			continue;
+
+		// se prioridade e contador de tempo forem maiores, o processo é o proximo 
+		if (p->priority >= next->priority)
+		{	
+			next->counter++;
+			next = p;
+			if(p->priority < PRIO_USER){
+				p->priority --; //Aging 
+			}
+		}
+		//caso não, contador incrementado
+		else{
+			p->counter++;
+			if(p->counter >= MAX_WAITING && p->priority < PRIO_USER){ /**Max Waiting Time for process*/ 
+				p->priority++;
+			}
+		}
+
+	}
+</code>
+<p>No trecho condicional acima o proximo processo a ser executado é alterado sempre que ele possui a prioridade mais alta dos processos encontrados, para evitar inanição de processos foram implementados 2 técnicas vistas em sala de aula.
+<li>Aging que faz uma diminuição da prioridade do processo sempre que o processo é executado com exeção de quando o processo tem uma prioridade de usuário (Foi levado em consideração que a prioridade PRIO_USER é a prioridade mais alta dentro do sistema)</li>
+<li>Max-Waiting-Time, define um valor máximo de espera para que processos de prioridade baixa não fiquem infinitamente aguardando seu escalonamento</li>
+</p>
+
 
 
 
