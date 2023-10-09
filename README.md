@@ -117,6 +117,100 @@ As prioridades do sistema Nanvix obedecem os seguintes critérios:
 </p>
 <p>Essas 2 implementações fazem as alterações de prioridade necessárias para que os processos mais prioritários sejam escalonados primeiro e conforme a tabela de processos, caso um processo tenha sua prioridade modificada pela função nice o algoritmo funcionará do mesmo jeito já que as prioridades estão sendo comparadas diretamente dos processos da tabela de processos</p>
 
+<hr>
+
+# Relatório
+
+## Introdução
+
+<hr>
+<p>
+Neste relatório, compartilhamos os resultados de uma série de testes base que conduzimos no sistema operacional Nanvix , utilizando o emulador QEMU. Nosso objetivo principal foi comparar o teste do arquivo base com nossas alterações nesse arquivo.
+</p>
+
+## Teste 1: Teste da Unidade de Ponto Flutuante (Test FPU)
+
+<hr>
+<ul>
+<li>Resultado: PASSED
+</ul>
+
+<p>
+Começamos nossos testes com o "Test FPU", focado na avaliação da unidade de ponto flutuante do Nanvix. Ficamos satisfeitos ao constatar que o teste passou com sucesso, indicando um bom desempenho nessa área.
+</p>
+
+## Teste 2: Teste de E/S (Test IO)
+
+<ul>
+<li>Resultado: PASSED
+<li>Tempo decorrido: 600 unidades
+</ul>
+
+<p>
+O segundo teste, chamado de "Test IO", concentrou-se na entrada e saída de dados. Este teste também foi bem-sucedido, com um tempo decorrido de 600 unidades.
+</p>
+
+## Teste 3: Teste de Swap (Swapping Test)
+
+<hr>
+<ul>
+<li>Resultado: PASSED
+<li>Tempo decorrido: 12000 unidades
+</ul>
+
+<p>
+No terceiro teste, conhecido como "Swapping Test", exploramos a capacidade de troca de páginas do Nanvix. Este teste também foi concluído com sucesso, e o tempo decorrido foi de 12000 unidades.
+</p>
+
+## Teste 4: Teste de Agendamento (Scheduling Test)
+
+<hr>
+<ul>
+<li>Waiting for child: PASSED
+<li>Dynamic priorities: PASSED
+<li>Sheduler stress: PASSED
+</ul>
+
+<p>
+Em nosso quarto teste, o "Scheduling Test", examinamos vários aspectos do agendamento de processos. Todos os subtestes, incluindo "Espera por Filho", "Prioridades Dinâmicas" e "Estresse no Agendador", obtiveram êxito.
+</p>
+
+## Teste 5: Teste de Comunicação entre Processos (IPC)
+
+<hr>
+<ul>
+<li>Resultado: Kernel Page Fault e Crash
+</ul>
+
+<p>
+No quinto e último teste, o "IPC Test", enfrentamos um desafio. Infelizmente, o teste resultou em um "Kernel Page Fault" e no travamento do sistema.
+</p>
+
+# Teste com nossas alterações:
+
+## Teste de agendamento que demos o nome de sched4 (Sheduling Test)
+
+<hr>
+
+<ul>
+<li> Resultado: PASSED
+</ul>
+
+## Diferenças
+
+<hr>
+
+<p>
+Com base no teste original feito acima, os resultados sofreram  diferenças com o teste  com nossas alterações, foi constatado duas mudanças,Teste IO (Entrada e Saída de Dados) e no teste de Swap(Swapping Test) e adicionamos mais um teste que chamamos de test sched4
+</p>
+
+## Conclusão
+
+<hr>
+ <p>
+ No teste IO (Entrada e Saída de Dados) a variação de tempo decorrido de 600 unidades no teste base para 700 unidades no teste alterado pode ser devido a várias razões, como carga de trabalho do sistema, sobrecarga de processos em segundo plano ou até mesmo flutuações naturais na execução de tarefas.
+No teste de Swap (Swapping Test) da mesma forma, a variação no tempo decorrido de 12000 unidades no teste base para 12300 unidades no teste com nossas alterações pode ser explicada pelo fato  de algoritmos que trabalham com prioridade terem mais tempo para selecionar qual processo vai ser executado, eles demandam um tempo maior, pois demora mais tempo para ver quais processos irão ser escalonados ou não e a capacidade de troca de páginas pode ser afetada pela carga de trabalho do sistema e pela disponibilidade de recursos de memória.
+</p>
 
 
 
